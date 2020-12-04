@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+  <?if $(var.Platform) = x64 ?>
+    <?define Win64 = "yes" ?>
+    <?define PlatformProgramFilesFolder = "ProgramFiles64Folder" ?>
+    <?define ProductLineUpgradeCode = "81cb0055-6cd3-4710-b475-a35a6c523625" ?>
+  <?else ?>
+    <?define Win64 = "no" ?>
+    <?define PlatformProgramFilesFolder = "ProgramFilesFolder" ?>
+    <?define ProductLineUpgradeCode = "34d91e8a-d618-49eb-8685-3c490451dc1d" ?>
+  <?endif ?>
+
+  <Product Id="*"
+           Name="FileNote !(bind.FileVersion.FileNote_exe)"
+           Language="1033"
+           Version="!(bind.FileVersion.FileNote_exe)"
+           Manufacturer="George Samartzidis"
+           UpgradeCode="$(var.ProductLineUpgradeCode)">
+
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine"  InstallPrivileges="elevated" />
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+
+    <MediaTemplate EmbedCab="yes" />
+
+    <WixVariable Id="WixUILicenseRtf" Value="License.rtf" />
+
+    <Feature Id="ProductFeature" Title="FileNoteSetup" Level="1">
+      <ComponentRef Id="ApplicationFiles" />
+      <ComponentRef Id="ApplicationRegistrySettings" />
+    </Feature>
+
+    <PropertyRef Id="NETFRAMEWORK45" />
+    <Condition Message="[ProductName] Requires .NET Framework 4.5 or later to be installed">
+      <![CDATA[Installed OR (NETFRAMEWORK45 AND NETFRAMEWORK45 >= "#461808")]]> <!-- 4.6=393295 4.7.2=461808-->
+    </Condition>
+
+    <UIRef Id="WixUI_Minimal" />
+  </Product>
+
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="$(var.PlatformProgramFilesFolder)">
+        <Directory Id="INSTALLFOLDER" Name="FileNote">
+
+          <Component Id="ApplicationRegistrySettings">
+            <RegistryValue Id="FileNote_RegKey_1" Root="HKCR" Key="Directory\shell\FileNote" Value="File note" Type="string" />
+            <RegistryValue Id="FileNote_RegKey_2" Root="HKCR" Key="Directory\shell\FileNote\command" Value="[INSTALLFOLDER]FileNote.exe &quot;%V&quot;" Type="string" />
+            <RegistryValue Id="FileNote_RegKey_3" Root="HKCR" Key="*\shell\FileNote" Value="File note" Type="string" />
+            <RegistryValue Id="FileNote_RegKey_4" Root="HKCR" Key="*\shell\FileNote\command" Value="[INSTALLFOLDER]FileNote.exe &quot;%1&quot;" Type="string" />
+          </Component>
+
+          <Component Id="ApplicationFiles" Guid="{c62cf7a3-58de-4f39-8574-2b42e4146494}">
+            <File Id="FileNote_exe" Name="FileNote.exe" Source="$(var.FileNoteBin)" />
+          </Component>
+
+        </Directory>
+      </Directory>
+    </Directory>
+  </Fragment>
+
+</Wix>

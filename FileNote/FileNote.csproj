@@ -1,0 +1,10 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net45</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Version>1.0.1</Version>
+  </PropertyGroup>
+
+</Project>
