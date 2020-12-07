@@ -45,10 +45,12 @@
         <Directory Id="INSTALLFOLDER" Name="FileNote">
 
           <Component Id="ApplicationRegistrySettings">
-            <RegistryValue Id="FileNote_RegKey_1" Root="HKCR" Key="Directory\shell\FileNote" Value="File note" Type="string" />
+            <RegistryValue Id="FileNote_RegKey_1" Root="HKCR" Key="Directory\shell\FileNote" Value="Open file note" Type="string" />
             <RegistryValue Id="FileNote_RegKey_2" Root="HKCR" Key="Directory\shell\FileNote\command" Value="[INSTALLFOLDER]FileNote.exe &quot;%V&quot;" Type="string" />
-            <RegistryValue Id="FileNote_RegKey_3" Root="HKCR" Key="*\shell\FileNote" Value="File note" Type="string" />
+            <RegistryValue Id="FileNote_RegKey_3" Root="HKCR" Key="*\shell\FileNote" Value="Open file note" Type="string" />
             <RegistryValue Id="FileNote_RegKey_4" Root="HKCR" Key="*\shell\FileNote\command" Value="[INSTALLFOLDER]FileNote.exe &quot;%1&quot;" Type="string" />
+            <RegistryValue Id="FileNote_RegKey_5" Root="HKCR" Key="Directory\Background\shell\FileNote" Value="Open file note" Type="string" />
+            <RegistryValue Id="FileNote_RegKey_6" Root="HKCR" Key="Directory\Background\shell\FileNote\command" Value="[INSTALLFOLDER]FileNote.exe &quot;%V&quot;" Type="string" />
           </Component>
 
           <Component Id="ApplicationFiles" Guid="{c62cf7a3-58de-4f39-8574-2b42e4146494}">
